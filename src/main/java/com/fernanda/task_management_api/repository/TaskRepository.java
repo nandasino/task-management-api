@@ -13,4 +13,8 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
   Page<Task> findByAssignedTo(User assignedTo, Pageable pageable);
 
   Page<Task> findByAssignedToAndStatus(User assignedTo, TaskStatus status, Pageable pageable);
+
+  boolean existsByAssignedToAndTitle(User assignedTo, String title);
+
+  boolean existsByAssignedToAndTitleAndIdNot(User assignedTo, String title, UUID id);
 }

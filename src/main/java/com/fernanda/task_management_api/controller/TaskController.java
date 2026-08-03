@@ -64,6 +64,10 @@ public class TaskController {
   public ResponseEntity<TaskResponse> createTask(
       @RequestBody @Valid TaskRequest request, @AuthenticationPrincipal User user) {
 
+    if (taskRepository.existsByAssignedToAndTitle(user, request.title())) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+
     Task task = new Task();
     task.setTitle(request.title());
     task.setDescription(request.description());
@@ -83,6 +87,10 @@ public class TaskController {
       @AuthenticationPrincipal User user) {
 
     Task task = findOwnedTask(id, user);
+
+    if (taskRepository.existsByAssignedToAndTitleAndIdNot(user, request.title(), id)) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
 
     task.setTitle(request.title());
     task.setDescription(request.description());
