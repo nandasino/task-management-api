@@ -27,9 +27,7 @@ public class TaskService {
   }
 
   public Page<TaskResponse> filterTasks(User user, TaskStatus status, Pageable pageable) {
-    return taskRepository
-        .findByAssignedToAndStatus(user, status, pageable)
-        .map(TaskResponse::from);
+    return taskRepository.findByAssignedToAndStatus(user, status, pageable).map(TaskResponse::from);
   }
 
   public TaskResponse getTask(UUID id, User user) {
