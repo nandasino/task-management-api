@@ -14,7 +14,15 @@ API RESTful para gerenciamento de tarefas, desenvolvida com Spring Boot e Hibern
 ## Como executar
 
 1. Crie o banco de dados executando o script em [`sql/schema.sql`](sql/schema.sql), ou deixe o Hibernate criar/atualizar o schema automaticamente (`spring.jpa.hibernate.ddl-auto=update`, já configurado em `application.properties`).
-2. Ajuste as credenciais do banco em `src/main/resources/application.properties` se necessário (`spring.datasource.username`/`password`).
+2. Ajuste, se necessário, as propriedades abaixo em `src/main/resources/application.properties` (todas têm um valor padrão para rodar localmente sem nenhuma alteração):
+
+   | Propriedade | O que faz | Como sobrescrever |
+   | --- | --- | --- |
+   | `spring.datasource.username` | Usuário de conexão com o MySQL | Variável de ambiente `SPRING_DATASOURCE_USERNAME` |
+   | `spring.datasource.password` | Senha de conexão com o MySQL | Variável de ambiente `SPRING_DATASOURCE_PASSWORD` |
+   | `api.security.token.secret` | Chave usada para assinar e validar os JWTs — **troque antes de subir para produção** | Variável de ambiente `API_SECURITY_TOKEN_SECRET` |
+   | `cors.allowed-origin` | Origem do frontend liberada pelo CORS (default `http://localhost:4200`) | Variável de ambiente `CORS_ALLOWED_ORIGIN` (já é o mecanismo usado no `application.properties`) |
+
 3. Rode a aplicação:
 
    ```bash
